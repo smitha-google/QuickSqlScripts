@@ -1,0 +1,12 @@
+WITH data AS (
+SELECT
+  id,
+  GENERATE_DATE_ARRAY(t.start_date, t.end_date, INTERVAL 1 MONTH) as date_array,
+  start_date,
+  end_date,
+  total_months
+FROM
+  `smithaargolisinternal.mimeo_dataset.test`t)
+
+SELECT id, col_date, start_date, end_date, total_months
+FROM data CROSS JOIN UNNEST(date_array) as col_date
